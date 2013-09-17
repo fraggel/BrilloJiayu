@@ -6,6 +6,7 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.provider.Settings;
 import android.view.View;
 import android.widget.ImageButton;
@@ -55,10 +56,14 @@ public class NewAppWidget extends AppWidgetProvider {
                 Intent intent2 = new Intent(context, DummyBrightnessActivity.class);
                 //int brillo=Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS);
                 int brillo_actual=Settings.System.getInt(context.getContentResolver(),Settings.System.SCREEN_BRIGHTNESS);
+                SharedPreferences prefs = context.getSharedPreferences("WidgetPrefs", Context.MODE_PRIVATE);
+                int max=Integer.parseInt(prefs.getString("maxBrillo","100"));
+                int min=Integer.parseInt(prefs.getString("minBrillo","25"));
 
-                if(brillo_actual<170){
+                brilloMax=Double.parseDouble(String.valueOf(max))/100;
+                brilloMin=Double.parseDouble(String.valueOf(min))/100;
+                if(brillo_actual<(brilloMax*255)){
                     int brightnessInt = (int)(brilloMax*255);
-
                     if(brightnessInt<1) {brightnessInt=1;}
 
 
@@ -72,7 +77,6 @@ public class NewAppWidget extends AppWidgetProvider {
 
                 }else{
                     int brightnessInt = (int)(brilloMin*255);
-
                     if(brightnessInt<1) {brightnessInt=1;}
 
                     Settings.System.putInt(context.getContentResolver(),
