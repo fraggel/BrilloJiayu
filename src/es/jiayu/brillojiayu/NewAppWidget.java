@@ -62,10 +62,9 @@ public class NewAppWidget extends AppWidgetProvider {
 
                 brilloMax=Double.parseDouble(String.valueOf(max))/100;
                 brilloMin=Double.parseDouble(String.valueOf(min))/100;
-                if(brillo_actual<(brilloMax*255)){
+                if(brillo_actual<(brilloMax*255)-5){
                     int brightnessInt = (int)(brilloMax*255);
                     if(brightnessInt<1) {brightnessInt=1;}
-
 
                     Settings.System.putInt(context.getContentResolver(),
                             Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
@@ -78,7 +77,6 @@ public class NewAppWidget extends AppWidgetProvider {
                 }else{
                     int brightnessInt = (int)(brilloMin*255);
                     if(brightnessInt<1) {brightnessInt=1;}
-
                     Settings.System.putInt(context.getContentResolver(),
                             Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
                     Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, brightnessInt);
