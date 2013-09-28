@@ -62,6 +62,7 @@ public class NewAppWidget extends AppWidgetProvider {
 
                 brilloMax=Double.parseDouble(String.valueOf(max))/100;
                 brilloMin=Double.parseDouble(String.valueOf(min))/100;
+
                 if(brillo_actual<(brilloMax*255)-5){
                     int brightnessInt = (int)(brilloMax*255);
                     if(brightnessInt<1) {brightnessInt=1;}
@@ -73,7 +74,8 @@ public class NewAppWidget extends AppWidgetProvider {
                     intent2 = new Intent(context, DummyBrightnessActivity.class);
                     intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent2.putExtra("brightness value", brilloMax);
-
+                    remoteViews.setImageViewResource(R.id.imageButton,
+                            R.drawable.ic_launcher0);
                 }else{
                     int brightnessInt = (int)(brilloMin*255);
                     if(brightnessInt<1) {brightnessInt=1;}
@@ -84,6 +86,8 @@ public class NewAppWidget extends AppWidgetProvider {
                     intent2 = new Intent(context, DummyBrightnessActivity.class);
                     intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent2.putExtra("brightness value", brilloMin);
+                    remoteViews.setImageViewResource(R.id.imageButton,
+                            R.drawable.ic_launcher);
                 }
                 remoteViews.setOnClickPendingIntent(R.id.imageButton, getPendingSelfIntent(context, SYNC_CLICKED));
                 appWidgetManager.updateAppWidget(watchWidget, remoteViews);
@@ -112,4 +116,5 @@ public class NewAppWidget extends AppWidgetProvider {
         views.setOnClickPendingIntent(R.id.imageButton, getPendingSelfIntent(context, SYNC_CLICKED));
 		appWidgetManager.updateAppWidget(appWidgetId, views);
 	}
+
 }
